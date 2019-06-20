@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Add from './components/Add'
+import Add from './components/Add';
+import UserDetails from './components/UserDetails';
 import Users from './components/Users'
 import VueRouter from 'vue-router';
 import vueResource from 'vue-resource';
@@ -13,7 +14,8 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {path: '/', component: Users},
-    {path: '/add', component: Add}
+    {path: '/add', component: Add},
+    {path: '/user/:id', component: UserDetails}
   ],
 })
 
@@ -35,7 +37,7 @@ new Vue({
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><router-link to="/add">Add User</router-link></li>
+      <button class="btn btn-warning"><router-link to="/add">Add User</router-link></button>
     </ul>
   </div>
 </nav>

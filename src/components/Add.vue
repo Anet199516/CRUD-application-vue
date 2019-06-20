@@ -1,5 +1,6 @@
 <template>
   <div class="add container">
+  <Alert v-if="alert" message="Fill in all fields" />
     <h1 class="page-header">Add User</h1>
     <form v-on:submit="addUser">
       <div class="well">
@@ -38,19 +39,61 @@
 </template>
 
 <script>
+
+import Alert from './Alert';
+let initialUsers = [
+    {
+        id: Math.random(),
+        first_name: 'Sam', 
+        last_name: 'Smith', 
+        phone: "345-777-888", 
+        email: 'smith@gmail.com',
+        country: 'USA'
+    },
+    {
+        id: Math.random(), 
+        first_name: "Pol", 
+        last_name: "Berby", 
+        phone: "999-485-935", 
+        email: "polby@gmail.com", 
+        country: "Great Britain"
+    },
+    {
+        id: Math.random(), 
+        first_name: "Adam", 
+        last_name: "Bren", 
+        phone: "098-124-950", 
+        email: "adambren@gmail.com", 
+        country: "Norway"
+    },
+    {
+        id: Math.random(), 
+        first_name: "Bill", 
+        last_name: "Grand", 
+        phone: "087-111-793", 
+        email: "billgrand@gmail.com", 
+        country: "Brasil"
+    }
+];
+
 export default {
   name: 'add',
   data () {
     return {
-      user: {}
+      user: {},
+      alert: '',
     }
   },
   methods: {
     addUser(event) {
-      if(!this.user.first_name || !this.user.last_name) {
-        console.log('Please fill in all required fields');
+      event.preventDefault();
+      if(!this.user.first_name || !this.user.last_name || !this.user.email 
+        || !this.user.phone || !this.user.country) {
+        this.alert = 'Fill in all fields';
       } else { 
+        
         let newUser = {
+          id: Math.random(),
           first_name: this.user.first_name,
           last_name: this.user.last_name,
           email: this.user.email,
@@ -58,13 +101,18 @@ export default {
           country: this.user.country,
         }
         
-        localStorage.setItem('user', JSON.stringify(newUser));
-        this.$router.push({path: '/'});
-
-        event.preventDefault();
+        localStorage.getItem('users', JSON.stringify(initialUsers));
+        let result = localStorage.getItem('users');
+        initialUsers = JSON.parse(result);
+        initialUsers.push(newUser);
+        localStorage.setItem('users', JSON.stringify(initialUsers))
+        this.$router.push({path: '/', query: {alert: 'User Added'}});
       }
-      event.preventDefault();
     }
+  },
+
+  components: {
+    Alert
   }
 }
 </script>
