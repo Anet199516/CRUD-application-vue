@@ -43,7 +43,7 @@
 import Alert from './Alert';
 let initialUsers = [
     {
-        id: Math.random(),
+        id: Math.random().toFixed(2),
         first_name: 'Sam', 
         last_name: 'Smith', 
         phone: "345-777-888", 
@@ -51,7 +51,7 @@ let initialUsers = [
         country: 'USA'
     },
     {
-        id: Math.random(), 
+        id: Math.random().toFixed(2), 
         first_name: "Pol", 
         last_name: "Berby", 
         phone: "999-485-935", 
@@ -59,7 +59,7 @@ let initialUsers = [
         country: "Great Britain"
     },
     {
-        id: Math.random(), 
+        id: Math.random().toFixed(2), 
         first_name: "Adam", 
         last_name: "Bren", 
         phone: "098-124-950", 
@@ -67,7 +67,7 @@ let initialUsers = [
         country: "Norway"
     },
     {
-        id: Math.random(), 
+        id: Math.random().toFixed(2), 
         first_name: "Bill", 
         last_name: "Grand", 
         phone: "087-111-793", 
@@ -93,7 +93,7 @@ export default {
       } else { 
         
         let newUser = {
-          id: Math.random(),
+          id: Math.random().toFixed(2),
           first_name: this.user.first_name,
           last_name: this.user.last_name,
           email: this.user.email,
@@ -101,11 +101,11 @@ export default {
           country: this.user.country,
         }
         
-        localStorage.getItem('users', JSON.stringify(initialUsers));
         let result = localStorage.getItem('users');
         initialUsers = JSON.parse(result);
         initialUsers.push(newUser);
         localStorage.setItem('users', JSON.stringify(initialUsers))
+
         this.$router.push({path: '/', query: {alert: 'User Added'}});
       }
     }

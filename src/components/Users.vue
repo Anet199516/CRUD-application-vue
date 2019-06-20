@@ -22,7 +22,7 @@
                   <td>{{user.email}}</td>
                   <td>{{user.phone}}</td>
                   <td>{{user.country}}</td>
-                  <td><router-link class="btn btn-dark" v-bind:to="'/user' + user.id">View</router-link></td>
+                  <td><router-link class="btn btn-dark" v-bind:to="'/user/' + user.id">View</router-link></td>
                   <td><button class="btn btn-danger" v-on:click="deleteUser(user.id)">Delete</button></td>
               </tr>
           </tbody>
@@ -89,13 +89,23 @@ export default {
         }
         
         
+    },
+
+    deleteUser(id) {
+        const users = JSON.parse(localStorage['users']);
+        const filteredUsers = users.filter(user => user.id !== id)
+        localStorage['users'] = JSON.stringify(filteredUsers);
+        this.users = filteredUsers;
+        this.$router.push({path: '/'});
     }
  },
 
     created: function() {
            if(this.$route.query.alert) {
                this.alert = this.$route.query.alert;
+               this.$router.push({path: '/'});
            }
+
         this.getUsers();
     },
 
