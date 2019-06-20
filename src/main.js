@@ -37,7 +37,7 @@ new Vue({
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <button class="btn btn-warning"><router-link to="/add">Add User</router-link></button>
+      <li><router-link to="/add">Add User</router-link></li>
     </ul>
   </div>
 </nav>
